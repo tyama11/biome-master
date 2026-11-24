@@ -29,6 +29,8 @@
         ruleOniItem: document.getElementById('rule-oni-item'),
         ruleOniText: document.getElementById('rule-oni-text'),
         btnOni: document.getElementById('btn-oni'),
+        tabScoreBiome: document.getElementById('tab-score-biome'),
+        tabScorePlant: document.getElementById('tab-score-plant'),
         categoryTabs: document.querySelectorAll('.category-tab'),
         modeButtons: document.querySelectorAll('.mode-btn'),
         homeBtn: document.getElementById('home-btn'),
@@ -88,9 +90,29 @@
         });
 
         setCategory('biome');
+        updateTabScores();
     }
 
     // ======== 学習カテゴリ切替＆難易度表示制御 ========
+    function getOniBestKey(category) {
+        return `biome-master-oni-best-${category}`;
+    }
+
+    function updateTabScores() {
+        const entries = [
+            { category: 'biome', el: els.tabScoreBiome },
+            { category: 'plant', el: els.tabScorePlant }
+        ];
+        entries.forEach(({ category, el }) => {
+            const saved = localStorage.getItem(getOniBestKey(category));
+            if (saved !== null) {
+                el.textContent = `👹 ${saved}問`;
+                el.hidden = false;
+            } else {
+                el.hidden = true;
+            }
+        });
+    }
     function getOniUnlockKey(category) {
         return `biome-master-oni-unlocked-${category}`;
     }
@@ -319,10 +341,12 @@
         if (itemIndex === -1) return;
         const item = state.items[itemIndex];
 
-        const tolerance = 12;
-        const matchedTarget = item.targets.find(
-            (target) => Math.abs(px - target.x) < tolerance && Math.abs(py - target.y) < tolerance
-        );
+        const defaultTolerance = 12;
+        const matchedTarget = item.targets.find((target) => {
+            const rx = target.rx ?? defaultTolerance;
+            const ry = target.ry ?? defaultTolerance;
+            return Math.abs(px - target.x) < rx && Math.abs(py - target.y) < ry;
+        });
 
         if (matchedTarget) {
             state.score++;
@@ -430,14 +454,16 @@
         state.isPlaying = false;
         state.selectedItemId = null;
 
-        const storageKey = `biome-master-oni-best-${state.category}`;
-        const prevBest = Number(localStorage.getItem(storageKey) || 0);
+        const storageKey = getOniBestKey(state.category);
+        const savedRaw = localStorage.getItem(storageKey);
+        const prevBest = savedRaw === null ? -1 : Number(savedRaw);
         const isNewRecord = state.score > prevBest;
         const bestScore = isNewRecord ? state.score : prevBest;
 
         if (isNewRecord) {
             localStorage.setItem(storageKey, String(bestScore));
         }
+        updateTabScores();
 
         const recordBadge = isNewRecord
             ? '<br><span class="record-badge">🎉 NEW RECORD!</span>'
@@ -504,6 +530,7 @@
         els.gameScreen.classList.remove('active');
         els.homeScreen.classList.add('active');
         updateDifficultyVisibility(state.justUnlockedOni);
+        updateTabScores();
         state.justUnlockedOni = false;
     }
 

@@ -118,7 +118,12 @@ const BIOME_DATA = [
         color: '#C2410C',
         bg: '#FFEDD5',
         hint: '極端に雨が少なく、乾燥に強い植物の地域',
-        targets: [{ x: 93, y: 81 }],
+        targets: [
+            { x: 92, y: 81, rx: 10, ry: 8 },
+            { x: 76, y: 82, rx: 12, ry: 5 },
+            { x: 56, y: 82, rx: 12, ry: 5 },
+            { x: 40, y: 82, rx: 8, ry: 5 }
+        ],
         base: [{ name: 'サボテン', emoji: '🌵', color: '#C2410C', bg: '#FFEDD5' }],
         oni: [{ name: 'サボテン', emoji: '🌵', color: '#C2410C', bg: '#FFEDD5' }]
     },
