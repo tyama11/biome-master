@@ -162,6 +162,5 @@ const CATEGORY_CONFIG = {
 const DIFFICULTY_LABELS = {
     easy: '🔰 かんたん',
     normal: '🌿 ふつう',
-    hard: '🌲 むずかしい',
     oni: '👹 おに (60秒TA)'
 };

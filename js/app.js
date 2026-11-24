@@ -26,10 +26,8 @@
         homeScreen: document.getElementById('home-screen'),
         gameScreen: document.getElementById('game-screen'),
         homeDesc: document.getElementById('home-desc'),
-        ruleNormalItem: document.getElementById('rule-normal-item'),
         ruleOniItem: document.getElementById('rule-oni-item'),
         ruleOniText: document.getElementById('rule-oni-text'),
-        btnNormal: document.getElementById('btn-normal'),
         btnOni: document.getElementById('btn-oni'),
         categoryTabs: document.querySelectorAll('.category-tab'),
         modeButtons: document.querySelectorAll('.mode-btn'),
@@ -98,14 +96,10 @@
     }
 
     function isOniUnlocked(category) {
-        return category === 'plant' && localStorage.getItem(getOniUnlockKey(category)) === 'true';
+        return localStorage.getItem(getOniUnlockKey(category)) === 'true';
     }
 
     function updateDifficultyVisibility(animateReveal = false) {
-        const isPlant = state.category === 'plant';
-        els.ruleNormalItem.hidden = !isPlant;
-        els.btnNormal.hidden = !isPlant;
-
         const oniVisible = isOniUnlocked(state.category);
         els.ruleOniItem.hidden = !oniVisible;
         els.btnOni.hidden = !oniVisible;
@@ -269,7 +263,7 @@
             ? state.items
             : state.items.filter((item) => !document.getElementById(`placed-${item.id}`));
 
-        const isAdvanced = state.difficulty === 'hard' || isOni;
+        const isAdvanced = state.difficulty === 'normal' || isOni;
 
         visibleItems.forEach((item) => {
             const card = document.createElement('div');
@@ -367,7 +361,7 @@
         pin.style.left = `${x}%`;
         pin.style.top = `${y}%`;
 
-        const isAdvanced = state.difficulty === 'hard' || state.difficulty === 'oni';
+        const isAdvanced = state.difficulty === 'normal' || state.difficulty === 'oni';
         if (isAdvanced) {
             pin.innerHTML = `<div class="pin-label advanced-label">${item.name}</div>`;
         } else {
@@ -411,7 +405,7 @@
         let displayTime = 3500;
         let unlockHtml = '';
 
-        if (state.category === 'plant' && state.difficulty === 'hard' && !isOniUnlocked(state.category)) {
+        if (state.difficulty === 'normal' && !isOniUnlocked(state.category)) {
             localStorage.setItem(getOniUnlockKey(state.category), 'true');
             state.justUnlockedOni = true;
             unlockHtml = '<div class="unlock-message">どこかでとびらがひらいたようだ…！</div>';
