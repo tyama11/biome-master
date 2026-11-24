@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>バイオームマスター</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ホーム画面 -->
+<div id="home-screen" class="screen active">
+    <div class="start-card">
+        <!-- 学習モード切替タブ（上部） -->
+        <div class="category-switcher" role="tablist" aria-label="学習モード選択">
+            <button
+                type="button"
+                id="tab-plant"
+                class="category-tab active"
+                role="tab"
+                aria-selected="true"
+                data-category="plant"
+            >
+                🌱 植物名で覚える
+            </button>
+            <button
+                type="button"
+                id="tab-biome"
+                class="category-tab"
+                role="tab"
+                aria-selected="false"
+                data-category="biome"
+            >
+                🗺️ バイオーム名で覚える
+            </button>
+        </div>
+
+        <h1>バイオームマスター 🌍</h1>
+        <p class="desc" id="home-desc">
+            植物カードを選んで、グラフ上の正しい「気温・降水量」の位置に配置しよう！
+        </p>
+
+        <div class="rules" id="home-rules">
+            <div class="rule-item">
+                <span class="rule-icon">🔰</span>
+                <div><b>かんたん</b>：環境のヒントが表示されます</div>
+            </div>
+            <div class="rule-item">
+                <span class="rule-icon">🌿</span>
+                <div><b>ふつう</b>：ヒントなし！自分の知識で挑戦しよう</div>
+            </div>
+            <div class="rule-item">
+                <span class="rule-icon">🌲</span>
+                <div><b>むずかしい</b>：アイコンや色が消滅！文字だけで判別するストイックモード</div>
+            </div>
+            <div class="rule-item">
+                <span class="rule-icon">👹</span>
+                <div id="rule-oni-text"><b>おに</b>：さらに出題される生物種が増加！</div>
+            </div>
+        </div>
+
+        <div class="mode-buttons">
+            <button type="button" class="mode-btn btn-easy" data-difficulty="easy">🔰 かんたんでスタート</button>
+            <button type="button" class="mode-btn btn-normal" data-difficulty="normal">🌿 ふつうでスタート</button>
+            <button type="button" class="mode-btn btn-hard" data-difficulty="hard">🌲 むずかしいでスタート</button>
+            <button type="button" class="mode-btn btn-oni" data-difficulty="oni">👹 おにでスタート</button>
+        </div>
+    </div>
+</div>
+
+<!-- ゲーム画面 -->
+<div id="game-screen" class="screen">
+    <header class="header">
+        <button type="button" class="reset-btn" id="home-btn">
+            <span class="reset-icon">🏠</span> ホーム
+        </button>
+
+        <div class="progress-container">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="score-text"><span id="score">0</span>/<span id="total-questions">10</span></div>
+        </div>
+
+        <div class="mode-display" id="mode-display">🌱 植物名 / 🔰 かんたん</div>
+    </header>
+
+    <main class="main">
+        <section class="graph-container">
+            <div class="graph-wrapper" id="graph-wrapper">
+                <img
+                    id="graph-image"
+                    src="assets/biome-graph.jpg"
+                    alt="バイオームの気温・降水量グラフ"
+                >
+                <div class="drop-zone" id="drop-zone"></div>
+            </div>
+        </section>
+
+        <aside class="tray">
+            <div class="tray-title">
+                <span id="tray-title-text">🌱 植物リスト</span>
+                <span class="tray-hint">👆タップで選択</span>
+            </div>
+            <div class="card-list" id="card-list"></div>
+        </aside>
+    </main>
+</div>
+
+<!-- トースト通知 -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- クリア時のオーバーレイ -->
+<div id="clear-overlay">
+    <div class="clear-message-box">
+        <h1 class="clear-title" id="clear-title">🎊 素晴らしい！ 🎊</h1>
+        <div class="clear-subtitle" id="clear-subtitle">すべてのバイオームをマスターしました！</div>
+        <div class="auto-return-text">まもなくホーム画面に戻ります...</div>
+    </div>
+</div>
+
+<script src="js/data.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>
