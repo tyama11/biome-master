@@ -134,7 +134,7 @@
         els.dropZone.innerHTML = '';
 
         const isOni = difficulty === 'oni';
-        els.graphWrapper.classList.toggle('hide-labels', state.category === 'biome');
+        els.graphWrapper.classList.toggle('hide-labels', state.category === 'biome' || isOni);
         els.progressContainer.classList.toggle('oni-active', isOni);
         els.timerBadge.hidden = !isOni;
         els.timerBadge.classList.remove('urgent');
