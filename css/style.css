@@ -103,11 +103,11 @@ body {
 }
 
 .tab-score {
-    font-size: 11px;
-    font-weight: bold;
-    color: #047857;
-    background: #D1FAE5;
-    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #065F46;
+    background: #A7F3D0;
+    padding: 3px 12px;
     border-radius: 999px;
     line-height: 1.3;
 }
@@ -253,27 +253,34 @@ body {
 
 .progress-container {
     flex: 1;
-    max-width: 440px;
+    max-width: 520px;
     margin: 0 15px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .timer-badge {
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 800;
     color: var(--text-main);
     background: #F1F5F9;
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: 6px 12px;
+    border-radius: 12px;
     white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
 }
 
 .timer-badge.urgent {
     color: #DC2626;
     background: #FEE2E2;
     animation: pulseUrgent 0.8s ease-in-out infinite;
+}
+
+.timer-badge.penalty-flash {
+    color: #FFFFFF;
+    background: #EF4444;
+    transform: scale(1.12);
 }
 
 @keyframes pulseUrgent {
@@ -305,12 +312,20 @@ body {
 }
 
 .score-text {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 800;
     color: var(--success);
-    min-width: 56px;
+    min-width: 72px;
     text-align: right;
     white-space: nowrap;
+}
+
+.progress-container.oni-active .score-text {
+    font-size: 28px;
+    background: #ECFDF5;
+    padding: 4px 14px;
+    border-radius: 12px;
+    border: 2px solid #A7F3D0;
 }
 
 .reset-btn {
@@ -820,11 +835,13 @@ body {
         display: none;
     }
     .timer-badge {
-        font-size: 13px;
+        font-size: 15px;
         padding: 4px 8px;
     }
-    .score-text {
-        font-size: 14px;
+    .score-text,
+    .progress-container.oni-active .score-text {
+        font-size: 20px;
+        padding: 3px 10px;
         min-width: auto;
     }
     .mode-display {

@@ -3,17 +3,19 @@
 
     const TOTAL_QUESTIONS = BIOME_DATA.length;
     const ONI_TIME_LIMIT = 60; // 秒
-    const ONI_TRAY_SIZE = 6;   // おにモードでトレイに常時並べるカード枚数
+    const ONI_PENALTY_SECONDS = 5; // ミス時のマイナス秒数
+    const ONI_TRAY_SIZE = 3;   // おにモードでトレイに常時並べるカード枚数
 
     // ======== ゲーム状態 ========
     const state = {
         category: 'plant',      // 'plant' | 'biome'
-        difficulty: 'easy',     // 'easy' | 'normal' | 'hard' | 'oni'
+        difficulty: 'easy',     // 'easy' | 'normal' | 'oni'
         score: 0,
         selectedItemId: null,
         items: [],
         nextItemUid: 0,
         timeLeft: ONI_TIME_LIMIT,
+        oniEndTime: 0,
         isPlaying: false,
         justUnlockedOni: false,
         timerInterval: null,
@@ -244,10 +246,10 @@
 
     // ======== おにモード タイマー ========
     function startOniTimer() {
-        const endTime = Date.now() + ONI_TIME_LIMIT * 1000;
+        state.oniEndTime = Date.now() + ONI_TIME_LIMIT * 1000;
 
         state.timerInterval = setInterval(() => {
-            const remainingMs = Math.max(0, endTime - Date.now());
+            const remainingMs = Math.max(0, state.oniEndTime - Date.now());
             state.timeLeft = Math.ceil(remainingMs / 1000);
             updateOniHud(remainingMs);
 
@@ -256,6 +258,25 @@
                 handleOniTimeUp();
             }
         }, 100);
+    }
+
+    function applyOniTimePenalty() {
+        state.oniEndTime -= ONI_PENALTY_SECONDS * 1000;
+        const remainingMs = Math.max(0, state.oniEndTime - Date.now());
+        state.timeLeft = Math.ceil(remainingMs / 1000);
+        updateOniHud(remainingMs);
+
+        els.timerBadge.classList.add('penalty-flash');
+        setTimeout(() => {
+            els.timerBadge.classList.remove('penalty-flash');
+        }, 350);
+
+        if (remainingMs <= 0) {
+            stopTimers();
+            handleOniTimeUp();
+            return true;
+        }
+        return false;
     }
 
     function updateOniHud(remainingMs = state.timeLeft * 1000) {
@@ -353,9 +374,9 @@
             placePinOnGraph(item, matchedTarget.x, matchedTarget.y);
 
             if (state.difficulty === 'oni') {
-                // 正解したカードをトレイから取り除き、新しい問題を補充（無限出題）
-                state.items.splice(itemIndex, 1);
-                state.items.push(pickNextOniItem());
+                // 正解したカードの位置に新しい問題を補充（常時3枚・無限出題）
+                const replacement = pickNextOniItem();
+                state.items.splice(itemIndex, 1, replacement);
                 updateOniHud();
                 showToast(`⭕ 正解！ ${item.name}`);
                 state.selectedItemId = null;
@@ -371,9 +392,14 @@
                 }
             }
         } else {
-            showToast('❌ うーん、違うみたい...');
             state.selectedItemId = null;
             renderCards();
+            if (state.difficulty === 'oni') {
+                showToast(`❌ ミス！ -${ONI_PENALTY_SECONDS}秒`);
+                applyOniTimePenalty();
+            } else {
+                showToast('❌ うーん、違うみたい...');
+            }
         }
     }
 
@@ -473,8 +499,8 @@
         els.clearTitle.style.color = '#0F172A';
         els.clearTitle.style.textShadow = 'none';
         els.clearSubtitle.innerHTML = `
-            <div style="font-size: 28px; color: var(--primary); margin-bottom: 6px;">${state.score} 問正解！</div>
-            ベスト記録：${bestScore} 問${recordBadge}
+            <div style="font-size: 46px; font-weight: 900; color: var(--primary); line-height: 1.15; margin-bottom: 8px;">${state.score}<span style="font-size: 24px; margin-left: 4px;">問正解！</span></div>
+            <div style="font-size: 18px;">ベスト記録：<b>${bestScore} 問</b></div>${recordBadge}
         `;
         els.clearActions.hidden = false;
         els.autoReturnText.hidden = true;
