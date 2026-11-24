@@ -15,29 +15,29 @@
         <div class="category-switcher" role="tablist" aria-label="学習モード選択">
             <button
                 type="button"
-                id="tab-plant"
+                id="tab-biome"
                 class="category-tab active"
                 role="tab"
                 aria-selected="true"
-                data-category="plant"
-            >
-                🌱 植物名で覚える
-            </button>
-            <button
-                type="button"
-                id="tab-biome"
-                class="category-tab"
-                role="tab"
-                aria-selected="false"
                 data-category="biome"
             >
                 🗺️ バイオーム名で覚える
+            </button>
+            <button
+                type="button"
+                id="tab-plant"
+                class="category-tab"
+                role="tab"
+                aria-selected="false"
+                data-category="plant"
+            >
+                🌱 植物名で覚える
             </button>
         </div>
 
         <h1>バイオームマスター 🌍</h1>
         <p class="desc" id="home-desc">
-            植物カードを選んで、グラフ上の正しい「気温・降水量」の位置に配置しよう！
+            バイオーム名カードを選んで、グラフ上の正しい「気温・降水量」の位置を覚えよう！
         </p>
 
         <div class="rules" id="home-rules">
@@ -45,7 +45,7 @@
                 <span class="rule-icon">🔰</span>
                 <div><b>かんたん</b>：環境のヒントが表示されます</div>
             </div>
-            <div class="rule-item">
+            <div class="rule-item" id="rule-normal-item" hidden>
                 <span class="rule-icon">🌿</span>
                 <div><b>ふつう</b>：ヒントなし！自分の知識で挑戦しよう</div>
             </div>
@@ -55,13 +55,13 @@
             </div>
             <div class="rule-item" id="rule-oni-item" hidden>
                 <span class="rule-icon">👹</span>
-                <div id="rule-oni-text"><b>おに</b>：さらに出題される生物種が増加！</div>
+                <div id="rule-oni-text"><b>おに</b>：60秒タイムアタック！様々な植物が無限に出題されます</div>
             </div>
         </div>
 
         <div class="mode-buttons">
             <button type="button" class="mode-btn btn-easy" data-difficulty="easy">🔰 かんたんでスタート</button>
-            <button type="button" class="mode-btn btn-normal" data-difficulty="normal">🌿 ふつうでスタート</button>
+            <button type="button" class="mode-btn btn-normal" id="btn-normal" data-difficulty="normal" hidden>🌿 ふつうでスタート</button>
             <button type="button" class="mode-btn btn-hard" data-difficulty="hard">🌲 むずかしいでスタート</button>
             <button type="button" class="mode-btn btn-oni" id="btn-oni" data-difficulty="oni" hidden>👹 おにでスタート</button>
         </div>

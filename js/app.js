@@ -26,8 +26,10 @@
         homeScreen: document.getElementById('home-screen'),
         gameScreen: document.getElementById('game-screen'),
         homeDesc: document.getElementById('home-desc'),
+        ruleNormalItem: document.getElementById('rule-normal-item'),
         ruleOniItem: document.getElementById('rule-oni-item'),
         ruleOniText: document.getElementById('rule-oni-text'),
+        btnNormal: document.getElementById('btn-normal'),
         btnOni: document.getElementById('btn-oni'),
         categoryTabs: document.querySelectorAll('.category-tab'),
         modeButtons: document.querySelectorAll('.mode-btn'),
@@ -87,23 +89,27 @@
             handlePlacementAttempt(e.clientX, e.clientY);
         });
 
-        setCategory('plant');
+        setCategory('biome');
     }
 
-    // ======== 学習カテゴリ切替＆おに解放状態 ========
+    // ======== 学習カテゴリ切替＆難易度表示制御 ========
     function getOniUnlockKey(category) {
         return `biome-master-oni-unlocked-${category}`;
     }
 
     function isOniUnlocked(category) {
-        return localStorage.getItem(getOniUnlockKey(category)) === 'true';
+        return category === 'plant' && localStorage.getItem(getOniUnlockKey(category)) === 'true';
     }
 
-    function updateOniVisibility(animateReveal = false) {
-        const unlocked = isOniUnlocked(state.category);
-        els.ruleOniItem.hidden = !unlocked;
-        els.btnOni.hidden = !unlocked;
-        els.btnOni.classList.toggle('just-unlocked', unlocked && animateReveal);
+    function updateDifficultyVisibility(animateReveal = false) {
+        const isPlant = state.category === 'plant';
+        els.ruleNormalItem.hidden = !isPlant;
+        els.btnNormal.hidden = !isPlant;
+
+        const oniVisible = isOniUnlocked(state.category);
+        els.ruleOniItem.hidden = !oniVisible;
+        els.btnOni.hidden = !oniVisible;
+        els.btnOni.classList.toggle('just-unlocked', oniVisible && animateReveal);
     }
 
     function setCategory(category) {
@@ -118,7 +124,7 @@
 
         els.homeDesc.textContent = config.description;
         els.ruleOniText.innerHTML = config.oniRule;
-        updateOniVisibility();
+        updateDifficultyVisibility();
     }
 
     // ======== ゲーム開始 ========
@@ -405,7 +411,7 @@
         let displayTime = 3500;
         let unlockHtml = '';
 
-        if (state.difficulty === 'hard' && !isOniUnlocked(state.category)) {
+        if (state.category === 'plant' && state.difficulty === 'hard' && !isOniUnlocked(state.category)) {
             localStorage.setItem(getOniUnlockKey(state.category), 'true');
             state.justUnlockedOni = true;
             unlockHtml = '<div class="unlock-message">どこかでとびらがひらいたようだ…！</div>';
@@ -503,7 +509,7 @@
 
         els.gameScreen.classList.remove('active');
         els.homeScreen.classList.add('active');
-        updateOniVisibility(state.justUnlockedOni);
+        updateDifficultyVisibility(state.justUnlockedOni);
         state.justUnlockedOni = false;
     }
 
