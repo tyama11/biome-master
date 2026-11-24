@@ -39,6 +39,7 @@
         timerText: document.getElementById('timer-text'),
         scoreText: document.getElementById('score-text'),
         progressFill: document.getElementById('progress-fill'),
+        graphWrapper: document.getElementById('graph-wrapper'),
         dropZone: document.getElementById('drop-zone'),
         cardList: document.getElementById('card-list'),
         toast: document.getElementById('toast'),
@@ -133,6 +134,7 @@
         els.dropZone.innerHTML = '';
 
         const isOni = difficulty === 'oni';
+        els.graphWrapper.classList.toggle('hide-labels', state.category === 'biome');
         els.progressContainer.classList.toggle('oni-active', isOni);
         els.timerBadge.hidden = !isOni;
         els.timerBadge.classList.remove('urgent');

@@ -366,6 +366,24 @@ body {
     pointer-events: none;
 }
 
+.label-masks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    display: none;
+}
+
+.graph-wrapper.hide-labels .label-masks {
+    display: block;
+}
+
+.label-mask {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+
 .drop-zone {
     position: absolute;
     top: 0;
