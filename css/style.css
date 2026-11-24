@@ -234,11 +234,32 @@ body {
 
 .progress-container {
     flex: 1;
-    max-width: 400px;
+    max-width: 440px;
     margin: 0 15px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
+}
+
+.timer-badge {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text-main);
+    background: #F1F5F9;
+    padding: 5px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.timer-badge.urgent {
+    color: #DC2626;
+    background: #FEE2E2;
+    animation: pulseUrgent 0.8s ease-in-out infinite;
+}
+
+@keyframes pulseUrgent {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
 }
 
 .progress-bar-bg {
@@ -256,11 +277,21 @@ body {
     transition: width 0.4s ease-out;
 }
 
+.progress-bar-fill.timer-fill {
+    transition: width 0.2s linear;
+}
+
+.progress-bar-fill.urgent {
+    background: #EF4444;
+}
+
 .score-text {
     font-size: 16px;
     font-weight: bold;
     color: var(--success);
-    width: 48px;
+    min-width: 56px;
+    text-align: right;
+    white-space: nowrap;
 }
 
 .reset-btn {
@@ -608,6 +639,62 @@ body {
     line-height: 1.5;
 }
 
+.placed-plant.fade-out {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    transform: translate(-50%, -65%) scale(0.9);
+}
+
+.clear-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.clear-actions[hidden],
+.auto-return-text[hidden],
+.timer-badge[hidden] {
+    display: none;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.action-retry {
+    background: var(--primary);
+    color: white;
+}
+
+.action-home {
+    background: #E2E8F0;
+    color: var(--text-main);
+}
+
+.record-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #FEF3C7;
+    color: #B45309;
+    font-size: 13px;
+    font-weight: bold;
+}
+
 .auto-return-text {
     font-size: 14px;
     color: var(--text-sub);
@@ -657,6 +744,22 @@ body {
     }
     .progress-container {
         display: none;
+    }
+    .progress-container.oni-active {
+        display: flex;
+        margin: 0 8px;
+        gap: 6px;
+    }
+    .progress-container.oni-active .progress-bar-bg {
+        display: none;
+    }
+    .timer-badge {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+    .score-text {
+        font-size: 14px;
+        min-width: auto;
     }
     .mode-display {
         font-size: 12px;
