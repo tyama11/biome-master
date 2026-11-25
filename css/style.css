@@ -1,18 +1,21 @@
 /* ======== ニューモーフィズム風 カラーパレット（自然・バイオームテーマ） ======== */
 :root {
-    --bg-color: #F6FBF4;
-    --surface: #F6FBF4;
-    --md-surface-container-low: #F0F6EE;
-    --md-surface-container: #E8F0E6;
-    --md-surface-container-high: #DEE9DC;
-    --primary: #146C2E;
-    --primary-hover: #0D5322;
-    --success: #146C2E;
+    --bg-color: #F1FBF2;
+    --surface: #F1FBF2;
+    --md-surface-container-low: #E6F5E8;
+    --md-surface-container: #DAEFE0;
+    --md-surface-container-high: #CBE7D0;
+    --primary: #0E6D2F;
+    --primary-hover: #075221;
+    --success: #0E6D2F;
     --md-on-primary: #FFFFFF;
-    --md-primary-container: #A6F5A9;
-    --md-on-primary-container: #002107;
-    --md-secondary-container: #D3E8D0;
-    --md-on-secondary-container: #101F10;
+    --md-primary-container: #8AF8A1;
+    --md-on-primary-container: #002108;
+    --md-secondary-container: #B9F0C2;
+    --md-on-secondary-container: #00210A;
+    --md-tertiary: #7D5260;
+    --md-tertiary-container: #FFD8E4;
+    --md-on-tertiary-container: #31111D;
     --md-outline: #727970;
     --md-outline-variant: #C1C9BF;
     --text-main: #181D18;
@@ -21,7 +24,9 @@
     --border: #C1C9BF;
     --header-h: 52px;
 
-    /* Material Design 3 Elevation */
+    /* Material 3 Expressive Motion & Elevation */
+    --m3-spring-fast: cubic-bezier(0.42, 1.67, 0.21, 0.90);
+    --m3-spring-spatial: cubic-bezier(0.38, 1.21, 0.22, 1.00);
     --md-elev-1: 0 1px 2px rgba(0, 0, 0, 0.14), 0 1px 3px 1px rgba(0, 0, 0, 0.08);
     --md-elev-2: 0 1px 2px rgba(0, 0, 0, 0.16), 0 2px 6px 2px rgba(0, 0, 0, 0.10);
     --md-elev-3: 0 4px 8px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.18);
