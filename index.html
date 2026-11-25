@@ -2,16 +2,15 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>バイオームマスター</title>
-    <link rel="stylesheet" href="css/style.css?v=20261124-3">
+    <link rel="stylesheet" href="css/style.css?v=20261125-1">
 </head>
 <body>
 
-<!-- ホーム画面 -->
+<!-- ホーム画面（全画面・横長レイアウト。内側の小窓やスクロール枠はなし） -->
 <div id="home-screen" class="screen active">
-    <div class="start-card">
-        <!-- 学習モード切替タブ（上部） -->
+    <header class="home-top-bar">
         <div class="category-switcher" role="tablist" aria-label="学習モード選択">
             <button
                 type="button"
@@ -36,40 +35,50 @@
                 <span class="tab-score" id="tab-score-plant" hidden></span>
             </button>
         </div>
+    </header>
 
-        <h1>バイオームマスター 🌍</h1>
-        <p class="desc" id="home-desc">
-            バイオーム名カードを選んで、グラフ上の正しい「気温・降水量」の位置を覚えよう！
-        </p>
+    <main class="home-body">
+        <section class="home-info">
+            <h1>バイオームマスター 🌍</h1>
+            <p class="desc" id="home-desc">
+                バイオーム名カードを選んで、グラフ上の正しい「気温・降水量」の位置を覚えよう！
+            </p>
 
-        <div class="rules" id="home-rules">
-            <div class="rule-item">
-                <span class="rule-icon">🔰</span>
-                <div><b>かんたん</b>：環境のヒントが表示されます</div>
-            </div>
-            <div class="rule-item">
-                <span class="rule-icon">🌿</span>
-                <div><b>ふつう</b>：ヒント・アイコン・色が消滅！文字だけで判別するモード</div>
-            </div>
-            <div class="rule-item" id="rule-oni-item" hidden>
-                <span class="rule-icon">👹</span>
-                <div id="rule-oni-text"><b>おに</b>：60秒タイムアタック！無限に出題されます</div>
-            </div>
-        </div>
+            <ul class="rules" id="home-rules">
+                <li class="rule-item">
+                    <span class="rule-icon" aria-hidden="true">🔰</span>
+                    <div><b>かんたん</b>：環境のヒントが表示されます</div>
+                </li>
+                <li class="rule-item">
+                    <span class="rule-icon" aria-hidden="true">🌿</span>
+                    <div><b>ふつう</b>：ヒント・アイコン・色が消滅！文字だけで判別するモード</div>
+                </li>
+                <li class="rule-item" id="rule-oni-item" hidden>
+                    <span class="rule-icon" aria-hidden="true">👹</span>
+                    <div id="rule-oni-text"><b>おに</b>：60秒タイムアタック！無限に出題されます</div>
+                </li>
+            </ul>
+        </section>
 
-        <div class="mode-buttons">
-            <button type="button" class="mode-btn btn-easy" data-difficulty="easy">🔰 かんたんでスタート</button>
-            <button type="button" class="mode-btn btn-normal" data-difficulty="normal">🌿 ふつうでスタート</button>
-            <button type="button" class="mode-btn btn-oni" id="btn-oni" data-difficulty="oni" hidden>👹 おにでスタート</button>
-        </div>
-    </div>
+        <section class="home-actions" aria-label="難易度を選んでスタート">
+            <div class="mode-buttons">
+                <button type="button" class="mode-btn btn-easy" data-difficulty="easy">🔰 かんたんでスタート</button>
+                <button type="button" class="mode-btn btn-normal" data-difficulty="normal">🌿 ふつうでスタート</button>
+                <button type="button" class="mode-btn btn-oni" id="btn-oni" data-difficulty="oni" hidden>👹 おにでスタート</button>
+            </div>
+            <p class="kbd-help">
+                <span class="kbd-line">⌨️ <kbd>Tab</kbd> 移動　<kbd>Enter</kbd> 選択　<kbd>Esc</kbd> 選択解除</span>
+                <span class="kbd-line">👹 おには <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> キーでもカード選択可能</span>
+            </p>
+        </section>
+    </main>
 </div>
 
 <!-- ゲーム画面 -->
 <div id="game-screen" class="screen">
     <header class="header">
         <button type="button" class="reset-btn" id="home-btn">
-            <span class="reset-icon">🏠</span> ホーム
+            <span class="reset-icon" aria-hidden="true">🏠</span> ホーム
         </button>
 
         <div class="progress-container" id="progress-container">
@@ -112,9 +121,9 @@
         <aside class="tray">
             <div class="tray-title">
                 <span id="tray-title-text">🌱 植物リスト</span>
-                <span class="tray-hint">👆タップで選択</span>
+                <span class="tray-hint" id="tray-hint">👆カードを選んで図をクリック</span>
             </div>
-            <div class="card-list" id="card-list"></div>
+            <div class="card-list" id="card-list" role="list" aria-label="カード一覧"></div>
         </aside>
     </main>
 </div>
@@ -135,7 +144,6 @@
     </div>
 </div>
 
-<script src="js/data.js?v=20261124-3" defer></script>
-<script src="js/app.js?v=20261124-3" defer></script>
+<script type="module" src="js/app.js?v=20261125-1"></script>
 </body>
 </html>

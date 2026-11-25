@@ -1,14 +1,7 @@
-/**
- * バイオームおよび代表的な植物のデータ定義
- *
- * - biomeName: バイオーム名モードで表示する名称
- * - biomeEmoji / color / bg: カード・ピン表示用のスタイル
- * - hint: かんたんモードで表示する環境ヒント
- * - targets: グラフ上の正解座標（%指定）
- * - base: かんたん・ふつう・むずかしいで出題する植物
- * - oni: おにモードでランダム出題する植物バリエーション
- */
-const BIOME_DATA = [
+                                                                                 
+
+/** バイオームおよび代表的な植物のデータ定義 */
+export const BIOME_DATA                      = [
     {
         id: 'b1',
         biomeName: '熱帯・亜熱帯多雨林',
@@ -144,13 +137,13 @@ const BIOME_DATA = [
 ];
 
 /** 学習カテゴリごとの表示設定 */
-const CATEGORY_CONFIG = {
+export const CATEGORY_CONFIG                                             = {
     plant: {
         label: '🌱 植物名',
         trayTitle: '🌱 植物リスト',
         description: '植物カードを選んで、グラフ上の正しい「気温・降水量」の位置に配置しよう！',
         oniRule: '<b>おに</b>：60秒タイムアタック（ミスで-5秒）！様々な植物が無限に出題されます',
-        startToast: '✨ 植物を選んで、グラフの正しい位置をタップしてね',
+        startToast: '✨ 植物を選んで、グラフの正しい位置をクリックしてね',
         oniToast: '👹 60秒タイムアタック開始！ミスは-5秒！'
     },
     biome: {
@@ -158,14 +151,17 @@ const CATEGORY_CONFIG = {
         trayTitle: '🗺️ バイオームリスト',
         description: 'バイオーム名カードを選んで、グラフ上の正しい「気温・降水量」の位置を覚えよう！',
         oniRule: '<b>おに</b>：60秒タイムアタック（ミスで-5秒）！バイオーム名が無限に出題されます',
-        startToast: '🗺️ バイオームを選んで、グラフの正しい位置をタップしてね',
+        startToast: '🗺️ バイオームを選んで、グラフの正しい位置をクリックしてね',
         oniToast: '👹 60秒タイムアタック開始！ミスは-5秒！'
     }
 };
 
 /** 難易度ごとの表示名 */
-const DIFFICULTY_LABELS = {
+export const DIFFICULTY_LABELS                                       = {
     easy: '🔰 かんたん',
     normal: '🌿 ふつう',
     oni: '👹 おに (60秒TA)'
 };
+
+
+//# sourceURL=data.ts
