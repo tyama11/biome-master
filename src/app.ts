@@ -107,6 +107,25 @@ function init(): void {
         startGame(state.difficulty);
     });
 
+    let isMuted = false;
+    let muteClickTimes: number[] = [];
+    const homeMuteBtn = document.getElementById('home-mute-btn');
+    if (homeMuteBtn) {
+        homeMuteBtn.addEventListener('click', () => {
+            isMuted = !isMuted;
+            homeMuteBtn.textContent = isMuted ? '🔇 音OFF' : '🔊 音ON';
+            const now = Date.now();
+            muteClickTimes = muteClickTimes.filter((t) => now - t <= 3000);
+            muteClickTimes.push(now);
+            if (muteClickTimes.length >= 6) {
+                muteClickTimes = [];
+                (['biome', 'plant'] as const).forEach((cat) => progress.unlockOni(cat));
+                updateDifficultyVisibility(true);
+                showToast('👹 どこかでとびらがひらいたようだ…！');
+            }
+        });
+    }
+
     els.dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
         if (e.dataTransfer) {
